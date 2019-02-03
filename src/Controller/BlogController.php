@@ -54,7 +54,7 @@ class BlogController
     }
 
     /**
-     * @Route("/", name="blog_index")
+     * @Route("/blog", name="blog_index")
      */
     public function index(): Response
     {
@@ -68,7 +68,7 @@ class BlogController
     }
 
     /**
-     * @Route("/post/add", name="blog_post_add")
+     * @Route("/blog/post/add", name="blog_post_add")
      * @return Response
      */
     public function addPost(): Response
@@ -88,7 +88,7 @@ class BlogController
     }
 
     /**
-     * @Route("/posts/{id}", name="blog_post")
+     * @Route("/blog/posts/{id}", name="blog_post")
      * @param string $id
      * @return Response
      * @throws NotFoundHttpException
