@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Blog Index!
+{% endblock %}
+
+{% block body %}
+    <aside>
+        {{ message }}
+    </aside>
+    <ul class="posts">
+        {% for id, post in posts %}
+            <li>
+                <p>
+                    <a href="{{ path('blog_post', {'id': id}) }}">{{ id }}</a>
+                </p>
+                <h3>{{ post.title }}</h3>
+                <p>{{ post.text }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+    <p>
+        <strong>Debug: </strong>{{ app.getDebug() }}
+    </p>
+    <p>
+        <strong>Environment: </strong>{{ app.getEnvironment() }}
+    </p>
+    <p>
+        <strong>Request: </strong>
+        <br>
+        <pre>{{ app.request }}</pre>
+    </p>
+    <p>
+        <strong>User: </strong>
+        <br/>
+    <pre>{{ app.user }}</pre>
+    </p>
+    <p>
+        <strong>Session started: </strong><pre>{{ app.session.isStarted() }}</pre>
+    </p>
+{% endblock %}

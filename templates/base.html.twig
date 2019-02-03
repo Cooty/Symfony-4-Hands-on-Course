@@ -1,12 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ locale }}">
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+
+        {# This block does something #}
+        {% block body %}
+
+        {% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
 </html>
