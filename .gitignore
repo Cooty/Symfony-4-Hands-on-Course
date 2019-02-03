@@ -17,5 +17,7 @@
 /.web-server-pid
 ###< symfony/web-server-bundle ###
 
-node_modules/
-.idea/
+/node_modules/
+/.idea/
+
+/public/build/
