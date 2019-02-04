@@ -1,13 +1,12 @@
-
 <!DOCTYPE html>
-<html>
+<html lang={{ locale }}>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>{% block title %}Welcome!{% endblock %}</title>
     {% block stylesheets %}
-        <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
+        {{ encore_entry_link_tags('app') }}
     {% endblock %}
 </head>
 <body class="bg-light">
@@ -46,7 +45,7 @@
     {% endblock %}
 </main>
 {% block javascripts %}
-    <script src="{{ asset('build/js/app.js') }}"></script>
+    {{ encore_entry_script_tags('app') }}
 {% endblock %}
 </body>
 </html>
