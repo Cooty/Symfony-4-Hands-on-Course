@@ -8,6 +8,7 @@ Encore
     .cleanupOutputBeforeBuild()
     .enableVersioning(Encore.isProduction())
     .enableSourceMaps(!Encore.isProduction())
+    //TODO: Add minification to JS output
     .addEntry('app', './assets/js/app.js')
     .addLoader({
             test: /\.js$/,
@@ -24,6 +25,7 @@ Encore
             }
     })
     .enableSassLoader((options) => {
+            //TODO: find out why it's not compressing
             options.outputStyle = 'compressed';
     })
     .disableSingleRuntimeChunk();
