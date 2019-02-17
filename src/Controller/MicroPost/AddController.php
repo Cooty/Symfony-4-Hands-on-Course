@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Controller;
+namespace App\Controller\MicroPost;
 
 use App\Entity\MicroPost;
 use App\Form\MicroPostType;
@@ -17,9 +17,8 @@ use Symfony\Component\Routing\RouterInterface;
 /**
  * Class MicroPostController
  * @package App\Controller
- * @Route("/micro-post")
  */
-class MicroPostController
+class AddController
 {
     /**
      * @var \Twig_Environment
@@ -46,11 +45,6 @@ class MicroPostController
      */
     private $router;
 
-    /**
-     * MicroPostController constructor.
-     * @param \Twig_Environment $twig
-     * @param MicroPostRepository $microPostRepository
-     */
     public function __construct(
         \Twig_Environment $twig,
         MicroPostRepository $microPostRepository,
@@ -66,19 +60,12 @@ class MicroPostController
     }
 
     /**
-     * @Route("/", name="micro_post_index")
-     */
-    public function index(): Response
-    {
-        $html = $this->twig->render('micro-post/index.html.twig', [
-            'posts' => $this->microPostRepository->findAll()
-        ]);
-
-        return new Response($html);
-    }
-
-    /**
-     * @Route("/add", name="micro_post_add")
+     * @Route("/micro-post/add", name="micro_post_add")
+     * @param Request $request
+     * @return Response
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function add(Request $request): Response
     {

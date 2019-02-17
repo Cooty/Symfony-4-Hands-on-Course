@@ -11,8 +11,10 @@
 </head>
 <body class="bg-light">
 <main role="main" class="container">
-    {% block body %}
-    {% endblock %}
+    <div class="my-3 p-3 bg-white rounded box-shadow">
+        {% block body %}
+        {% endblock %}
+    </div>
 </main>
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
