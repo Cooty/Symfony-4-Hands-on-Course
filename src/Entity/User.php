@@ -116,6 +116,6 @@ class User implements UserInterface, \Serializable
     {
         list($this->id,
             $this->username,
-            $this->password) = $this->unserialize($serialized);
+            $this->password) = unserialize($serialized);
     }
 }

@@ -18,10 +18,12 @@ class App {
     }
 
     init() {
-        console.log('hello app - Dev Server 6666');
+        console.log('App initialized - change v7');
     }
 }
 
+// Need some additional settings to work with Vagrant file-syncing
+// https://github.com/symfony/webpack-encore/issues/191
 const app = new App();
 Object.freeze(app);
 

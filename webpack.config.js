@@ -6,7 +6,7 @@ Encore
     // public path used by the web server to access the output path
     .setPublicPath('/build')
     .cleanupOutputBeforeBuild()
-    .enableVersioning(Encore.isProduction())
+    .enableVersioning()
     .enableSourceMaps(!Encore.isProduction())
     //TODO: Add minification to JS output
     .addEntry('app', './assets/js/app.js')
@@ -30,4 +30,9 @@ Encore
     })
     .disableSingleRuntimeChunk();
 
-module.exports = Encore.getWebpackConfig();
+const config = Encore.getWebpackConfig();
+config.watchOptions = {
+    poll: true
+};
+
+module.exports = config;
