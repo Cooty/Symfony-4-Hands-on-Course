@@ -1,7 +1,9 @@
 <article class="media text-muted pt-3" id="{{ post.id }}">
-    <img data-src="holder.js/32x32?text=MJ&bg=e83e8c&fg=fff&size=8" alt="" class="mr-2 rounded">
+    {% set initials = post.user.fullName|split(' ') %}
+
+    <img data-src="holder.js/32x32?text={{ attribute(initials, 0)|first }}{{ attribute(initials, 1)|first }}&bg=e83e8c&fg=fff&size=8" alt="" class="mr-2 rounded">
     <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-        <span class="d-block"><strong class="text-gray-dark">@username</strong> <small>· {{ post.time|date("d/m/Y") }}</small></span>
+        <span class="d-block"><strong class="text-gray-dark">@{{ post.user.username }}</strong> <small>· {{ post.time|date("d/m/Y") }}</small></span>
         {{ post.text }}
     </p>
 </article>

@@ -8,9 +8,6 @@
     {% endfor %}
 
     <h6 class="border-bottom border-gray pb-2 mb-0">Recent updates</h6>
-    <small class="d-block text-left mt-3 border-bottom border-gray pb-2">
-        <a class="btn btn-sm btn-primary" href="{{ path('micro_post_add') }}">Add new</a>
-    </small>
     {% for post in posts %}
         <a href="{{ path('micro_post_post', {'id': post.id}) }}">
             {% include './micro-post/includes/post-item.html.twig' %}
