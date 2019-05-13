@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}@{{ post.user.username }} on {{ post.time|date("d/m/Y") }}{% endblock %}
+
 {% block body %}
     {% include('./micro-post/includes/post-item.html.twig') %}
 {% endblock %}

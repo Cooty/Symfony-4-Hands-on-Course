@@ -3,6 +3,7 @@
 namespace App\Controller\MicroPost;
 
 use App\Entity\MicroPost;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -56,12 +57,13 @@ class EditController
 
     /**
      * @Route("/micro-post/edit/{id}", name="micro_post_edit")
+     * @Security("is_granted('edit', microPost)", message="You don't have permission to edit this post")
      * @param MicroPost $microPost
      * @param Request $request
      * @return Response
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
      */
     public function edit(MicroPost $microPost, Request $request): Response
     {
@@ -69,9 +71,8 @@ class EditController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-//            $this->entityManager->persist($microPost);
             $this->entityManager->flush();
-            return new RedirectResponse($this->router->generate('micro_post_index'));
+            return new RedirectResponse($this->router->generate('micro_post_post', ['id' => $microPost->getId()]));
         }
 
         $html = $this->twig->render(

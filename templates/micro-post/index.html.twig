@@ -12,10 +12,16 @@
         <a href="{{ path('micro_post_post', {'id': post.id}) }}">
             {% include './micro-post/includes/post-item.html.twig' %}
         </a>
-        <small class="d-block text-right mt-3">
-            <a class="d-inline-block mr-3" href="{{ path('micro_post_edit', {'id': post.id}) }}">edit</a>
-            <a class="d-inline-block" href="{{ path('micro_post_delete', {'id': post.id}) }}">delete</a>
-        </small>
+        {% if is_granted('ROLE_USER')  %}
+            <small class="d-block text-right mt-3">
+                {% if is_granted('edit', post) %}
+                    <a class="d-inline-block mr-3" href="{{ path('micro_post_edit', {'id': post.id}) }}">edit</a>
+                {% endif %}
+                {% if is_granted('delete', post) %}
+                    <a class="d-inline-block" href="{{ path('micro_post_delete', {'id': post.id}) }}">delete</a>
+                {% endif %}
+            </small>
+        {% endif %}
     {% endfor %}
     <small class="d-block text-center mt-3">
         <a href="#">All updates</a>

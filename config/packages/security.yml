@@ -1,4 +1,6 @@
 security:
+    access_decision_manager:
+        strategy: affirmative
     encoders:
         App\Entity\User: bcrypt
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers

@@ -4,6 +4,7 @@
 namespace App\Controller\MicroPost;
 
 use App\Entity\MicroPost;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -40,6 +41,7 @@ class DeleteController
     /**
      * @Route("micro-post/delete/{id}", name="micro_post_delete")
      * @param MicroPost $microPost
+     * @Security("is_granted('delete', microPost)", message="You don't have permission to delete this post")
      * @return RedirectResponse
      */
     public function delete(MicroPost $microPost)
