@@ -12,7 +12,7 @@
         <a href="{{ path('micro_post_post', {'id': post.id}) }}">
             {% include './micro-post/includes/post-item.html.twig' %}
         </a>
-        {% if is_granted('ROLE_USER')  %}
+        {% if app.user %}
             <small class="d-block text-right mt-3">
                 {% if is_granted('edit', post) %}
                     <a class="d-inline-block mr-3" href="{{ path('micro_post_edit', {'id': post.id}) }}">edit</a>

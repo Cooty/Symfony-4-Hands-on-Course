@@ -5,6 +5,7 @@ namespace App\Security;
 use App\Entity\MicroPost;
 use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class MicroPostVoter extends Voter
@@ -12,6 +13,16 @@ class MicroPostVoter extends Voter
     // the actions to vote on
     const EDIT = 'edit';
     const DELETE = 'delete';
+
+    /**
+     * @var AccessDecisionManagerInterface
+     */
+    private $decisionManager;
+
+    public function __construct(AccessDecisionManagerInterface $manager)
+    {
+        $this->decisionManager = $manager;
+    }
 
     // Determines if this voter even applies to the action and the object that is passed
     // We only want to check if a user has permission to EDIT or DELETE a MicroPost...
@@ -34,6 +45,11 @@ class MicroPostVoter extends Voter
     // this method checks the actual permissions
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
     {
+        // If it's an admin we don't even need any other checks...
+        if($this->decisionManager->decide($token, [User::ROLE_ADMIN])) {
+            return true;
+        }
+
         $authenticatedUser = $token->getUser();
 
         if(!$authenticatedUser instanceof User) {

@@ -7,14 +7,14 @@ use App\Entity\MicroPost;
 use App\Form\MicroPostType;
 use App\Repository\MicroPostRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Core\Security as SecurityBundle;
 
 /**
  * Class MicroPostController
@@ -64,15 +64,15 @@ class AddController
 
     /**
      * @Route("/micro-post/add", name="micro_post_add")
-     * @IsGranted("ROLE_USER")
+     * @Security("is_granted('ROLE_USER')")
      * @param Request $request
-     * @param Security $security
+     * @param SecurityBundle $security
      * @return Response
      * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
-    public function add(Request $request, Security $security): Response
+    public function add(Request $request, SecurityBundle $security): Response
     {
         $microPost = new MicroPost();
         $microPost->setTime(new \DateTime());
