@@ -73,6 +73,42 @@ class User implements UserInterface, \Serializable
      */
     private $roles;
 
+    // Follow feature: Many-to-Many relationship that's self-referencing
+    // at many to many relationships it's better to join the tables
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="following")
+     */
+    private $followers;
+
+    /**
+     * @return mixed
+     */
+    public function getFollowers()
+    {
+        return $this->followers;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFollowing()
+    {
+        return $this->following;
+    }
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="followers")
+     * @ORM\JoinTable(name="following",
+     *     joinColumns={
+     *          @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     *     },
+     *     inverseJoinColumns={
+     *          @ORM\JoinColumn(name="following_user_id", referencedColumnName="id")
+     *     }
+     * )
+     */
+    private $following;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -179,6 +215,8 @@ class User implements UserInterface, \Serializable
     public function __construct()
     {
         $this->posts = new ArrayCollection();
+        $this->followers = new ArrayCollection();
+        $this->following = new ArrayCollection();
     }
 
     /**
@@ -188,4 +226,5 @@ class User implements UserInterface, \Serializable
     {
         return $this->posts;
     }
+
 }
