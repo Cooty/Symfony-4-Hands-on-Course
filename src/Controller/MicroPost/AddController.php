@@ -75,7 +75,6 @@ class AddController
     public function add(Request $request, SecurityBundle $security): Response
     {
         $microPost = new MicroPost();
-        $microPost->setTime(new \DateTime());
 
         $form = $this->formFactory->create(MicroPostType::class, $microPost);
         $form->handleRequest($request);
