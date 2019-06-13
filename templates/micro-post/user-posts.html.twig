@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="card-group py-2">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    {{ user.fullName }}
+                    <small class="text-muted">&nbsp;·&nbsp;@{{ user.username }}</small>
+                </h5>
+            </div>
+        </div>
+    </div>
+
+    {% if user.followers|length > 0 or user.following|length > 0 %}
+        {% set followerTemplateParams = {'title': 'Followers', 'relatedUsers': user.followers} %}
+        {% set followingTemplateParams = {'title': 'Following', 'relatedUsers': user.following} %}
+
+        <div class="card-group py-2">
+            {% include('./micro-post/includes/related-users.html.twig') with followerTemplateParams %}
+            {% include('./micro-post/includes/related-users.html.twig') with followingTemplateParams %}
+        </div>
+    {% endif %}
+
+    {% for post in posts %}
+        {% include './micro-post/includes/post-item.html.twig' %}
+        {% if app.user %}
+            <small class="d-block text-right mt-3">
+                {% if is_granted('edit', post) %}
+                    <a class="d-inline-block mr-3" href="{{ path('micro_post_edit', {'id': post.id}) }}">edit</a>
+                {% endif %}
+                {% if is_granted('delete', post) %}
+                    <a class="d-inline-block" href="{{ path('micro_post_delete', {'id': post.id}) }}">delete</a>
+                {% endif %}
+            </small>
+        {% endif %}
+    {% endfor %}
+    <small class="d-block text-center mt-3">
+        <a href="#">All updates</a>
+    </small>
+{% endblock %}

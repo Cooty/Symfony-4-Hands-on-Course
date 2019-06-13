@@ -40,15 +40,16 @@ class UserPostsController extends AbstractController
      */
     public function userPosts(User $userWithPosts)
     {
-        $posts = $userWithPosts->getPosts();
+//        $posts = $userWithPosts->getPosts();
 
-        $html = $this->twig->render('micro-post/index.html.twig', [
-//            'posts' => $this->microPostRepository->findBy(
-//                ['user'=> $userWithPosts],
-//                ['time' => 'DESC']
-//            )
+        $html = $this->twig->render('micro-post/user-posts.html.twig', [
+            'posts' => $this->microPostRepository->findBy(
+                ['user'=> $userWithPosts],
+                ['time' => 'DESC']
+            ),
+            'user' => $userWithPosts,
             // Lazy loaded internally by Doctrine's generated proxy-class
-            'posts'=> $posts
+//            'posts'=> $posts
         ]);
 
         return new Response($html);
