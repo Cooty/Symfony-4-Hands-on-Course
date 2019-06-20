@@ -92,6 +92,7 @@ class MicroPost
      */
     public function setTimeOnPersist(): void
     {
-        $this->time = new \DateTime();
+        $dateTime = new \DateTime();
+        $this->time = $dateTime;
     }
 }
