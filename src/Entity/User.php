@@ -74,6 +74,7 @@ class User implements UserInterface, \Serializable
      */
     private $roles;
 
+    // $followers is the INVERSE-SIDE of the $following-$followers relation
     // Follow feature: Many-to-Many relationship that's self-referencing
     // at many to many relationships it's better to join the tables
     /**
@@ -97,6 +98,7 @@ class User implements UserInterface, \Serializable
         return $this->following;
     }
 
+    /* $following is the OWNING side of the following-followers relationship, this has the JOIN */
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="followers")
      * @ORM\JoinTable(name="following",

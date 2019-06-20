@@ -8,6 +8,25 @@
                     {{ user.fullName }}
                     <small class="text-muted">&nbsp;·&nbsp;@{{ user.username }}</small>
                 </h5>
+
+                {# 1st up - don't display the "Follow" button on my own profile #}
+                {% if is_granted('ROLE_USER') and user != app.user %}
+                    {#
+                        .contains is a method of ArrayCollection which is used to check if an item is in the collection
+                        user.followers is an ArrayCollection type
+                     #}
+                    {% if user.followers.contains(app.user) == false%}
+                        <a href="{{ path('micro_post_following_follow', {'id': user.id}) }}"
+                           class="btn btn-outline-primary">
+                            Follow
+                        </a>
+                    {% else %}
+                        <a href="{{ path('micro_post_following_unfollow', {'id': user.id}) }}"
+                           class="btn btn-outline-danger">
+                            Unfollow
+                        </a>
+                    {% endif %}
+                {% endif %}
             </div>
         </div>
     </div>
