@@ -230,4 +230,13 @@ class User implements UserInterface, \Serializable
         return $this->posts;
     }
 
+    public function follow(User $userToFollow)
+    {
+        if($this->getFollowing()->contains($userToFollow)) {
+            return;
+        }
+
+        $this->getFollowing()->add($userToFollow);
+    }
+
 }

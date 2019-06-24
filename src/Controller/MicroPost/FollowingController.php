@@ -27,7 +27,8 @@ class FollowingController extends AbstractController
         /* check on a Controller level that a user can not follow himself (not displaying the button is not enough) */
         if($currentUser->getId() !== $userToFollow->getId()) {
             /* Automatically prepares the insert statement on the table we've joined to represent the relationship  */
-            $currentUser->getFollowing()->add($userToFollow);
+//            $currentUser->getFollowing()->add($userToFollow);
+            $currentUser->follow($userToFollow);
 
             $this->getDoctrine()->getManager()->flush();
         }
