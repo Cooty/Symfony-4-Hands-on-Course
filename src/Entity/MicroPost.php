@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -36,6 +38,26 @@ class MicroPost
      * @ORM\JoinColumn()
      */
     private $user;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="postsLiked")
+     * @ORM\JoinTable(name="post_likes",
+     * joinColumns={
+     *     @ORM\JoinColumn(name="post_id", referencedColumnName="id")
+     * },
+     * inverseJoinColumns={
+     *     @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * })
+     */
+    private $likedBy;
+
+    /**
+     * @return Collection
+     */
+    public function getLikedBy()
+    {
+        return $this->likedBy;
+    }
 
     /**
      * @return User
@@ -93,5 +115,19 @@ class MicroPost
     {
         $dateTime = new \DateTime();
         $this->time = $dateTime;
+    }
+
+    public function like(User $user)
+    {
+        if($this->getLikedBy()->contains($user)) {
+            return;
+        }
+
+        $this->getLikedBy()->add($user);
+    }
+
+    public function __construct()
+    {
+        $this->likedBy = new ArrayCollection();
     }
 }
