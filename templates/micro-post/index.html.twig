@@ -7,21 +7,30 @@
         </div>
     {% endfor %}
 
-    <h6 class="border-bottom border-gray pb-2 mb-0">Recent updates</h6>
-    {% for post in posts %}
-        {% include './micro-post/includes/post-item.html.twig' %}
-        {% if app.user %}
-            <small class="d-block text-right mt-3">
-                {% if is_granted('edit', post) %}
-                    <a class="d-inline-block mr-3" href="{{ path('micro_post_edit', {'id': post.id}) }}">edit</a>
-                {% endif %}
-                {% if is_granted('delete', post) %}
-                    <a class="d-inline-block" href="{{ path('micro_post_delete', {'id': post.id}) }}">delete</a>
-                {% endif %}
-            </small>
-        {% endif %}
-    {% endfor %}
-    <small class="d-block text-center mt-3">
-        <a href="#">All updates</a>
-    </small>
+    {% if usersToFollow|length > 0 %}
+        <h6 class="border-bottom border-gray pb-2 mb-2">Some users to follow</h6>
+        {% for userToFollow in usersToFollow %}
+            <a href="{{ path('micro_post_following_follow', {'id': userToFollow.id}) }}">
+                @{{ userToFollow.username }}
+            </a>
+        {% endfor %}
+    {% else %}
+        <h6 class="border-bottom border-gray pb-2 mb-0">Recent updates</h6>
+        {% for post in posts %}
+            {% include './micro-post/includes/post-item.html.twig' %}
+            {% if app.user %}
+                <small class="d-block text-right mt-3">
+                    {% if is_granted('edit', post) %}
+                        <a class="d-inline-block mr-3" href="{{ path('micro_post_edit', {'id': post.id}) }}">edit</a>
+                    {% endif %}
+                    {% if is_granted('delete', post) %}
+                        <a class="d-inline-block" href="{{ path('micro_post_delete', {'id': post.id}) }}">delete</a>
+                    {% endif %}
+                </small>
+            {% endif %}
+        {% endfor %}
+        <small class="d-block text-center mt-3">
+            <a href="#">All updates</a>
+        </small>
+    {% endif %}
 {% endblock %}
