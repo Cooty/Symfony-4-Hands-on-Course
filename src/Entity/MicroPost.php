@@ -117,6 +117,9 @@ class MicroPost
         $this->time = $dateTime;
     }
 
+    /**
+     * @param User $user
+     */
     public function like(User $user)
     {
         if($this->getLikedBy()->contains($user)) {

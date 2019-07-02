@@ -4,46 +4,46 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: 'en'
-    hello_prefix: 'Hello from the Service '
+  locale: 'en'
+  hello_prefix: 'Hello from the Service '
 
 services:
-    # default configuration for services in *this* file
-    _defaults:
-        autowire: true      # Automatically injects dependencies in your services.
-        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
-        public: false
-        bind:
-            $message: '%hello_prefix%'
+  # default configuration for services in *this* file
+  _defaults:
+    autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+    public: false
+    bind:
+      $message: '%hello_prefix%'
 
-    # makes classes in src/ available to be used as services
-    # this creates a service per class whose id is the fully-qualified class name
-    App\:
-        resource: '../src/*'
-        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+  # makes classes in src/ available to be used as services
+  # this creates a service per class whose id is the fully-qualified class name
+  App\:
+    resource: '../src/*'
+    exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
 
-    # controllers are imported separately to make sure services can be injected
-    # as action arguments even if you don't extend any base controller class
-    App\Controller\:
-        resource: '../src/Controller'
-        tags: ['controller.service_arguments']
+  # controllers are imported separately to make sure services can be injected
+  # as action arguments even if you don't extend any base controller class
+  App\Controller\:
+    resource: '../src/Controller'
+    tags: ['controller.service_arguments']
 
-    App\Twig\AppExtension:
-        arguments:
-            $locale: '%locale%'
+  App\Twig\AppExtension:
+    arguments:
+      $locale: '%locale%'
 
-#    App\Service\Greetings:
-#        tags: ['app.utility', 'app.output']
-#        arguments:
-#            $message: '%hello_prefix%'
-#   This is what manual dependency injection would look like...
-#    App\Controller\BlogController:
-#        ['@App\Service\Greetings']
-#    App\Service\Greetings:
-#        ['@monolog.logger']
-    app.greetings:
-        public: true
-        alias: App\Service\Greetings
+  #    App\Service\Greetings:
+  #        tags: ['app.utility', 'app.output']
+  #        arguments:
+  #            $message: '%hello_prefix%'
+  #   This is what manual dependency injection would look like...
+  #    App\Controller\BlogController:
+  #        ['@App\Service\Greetings']
+  #    App\Service\Greetings:
+  #        ['@monolog.logger']
+  app.greetings:
+    public: true
+    alias: App\Service\Greetings
 
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+  # add more service definitions when explicit configuration is needed
+  # please note that last definitions always *replace* previous ones
