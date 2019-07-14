@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import  '../scss/app.scss';
 
 import 'jquery/dist/jquery.slim.js';

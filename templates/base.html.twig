@@ -7,6 +7,7 @@
     <title>{% block title %}MicroPosts{% endblock %}</title>
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
+        {#<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />#}
     {% endblock %}
 </head>
 <body class="bg-light">
@@ -21,6 +22,27 @@
 </main>
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
+
+    {% if is_granted('ROLE_USER') %}
+        <script>
+            function fetchNotificationCount() {
+                fetch(
+                    '{{ path('notification_unread') }}',
+                    {'credentials': 'include'}
+                ).then((response)=> {
+                    response.json()
+                        .then((data)=> {
+                            document.getElementById('js-notification-count').innerHTML = data.count;
+                            setTimeout(fetchNotificationCount, 5000);
+                        });
+                }).catch((reason)=> {
+                    console.warn(reason);
+                });
+            }
+
+            fetchNotificationCount();
+        </script>
+    {% endif %}
 {% endblock %}
 </body>
 </html>

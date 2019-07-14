@@ -14,6 +14,14 @@
     <div class="order-2 order-md-1">
         <ul class="navbar-nav px-3">
             {% if is_granted('ROLE_USER') %}
+                <li class="nav-item text-nowrap border-right border-secondary">
+                    <a class="nav-link">
+                        Notifications
+                        <span class="badge badge-light" id="js-notification-count">
+                            <i class="fas fa-circle-notch fa-spin"></i>
+                        </span>
+                    </a>
+                </li>
                 <li class="nav-item text-nowrap">
                     <a class="nav-link"
                        href="{{ path('micro_post_user', {'username': app.user.username}) }}">{{ app.user.fullName }}</a>

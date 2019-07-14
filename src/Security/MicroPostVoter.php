@@ -24,7 +24,7 @@ class MicroPostVoter extends Voter
         $this->decisionManager = $manager;
     }
 
-    // Determines if this voter even applies to the action and the object that is passed
+    // Determines if this voter event applies to the action and the object that is passed
     // We only want to check if a user has permission to EDIT or DELETE a MicroPost...
     // for other things we would create another voter class
     // this will always be called before voteOnAttribute so if it returns FALSE then the second
