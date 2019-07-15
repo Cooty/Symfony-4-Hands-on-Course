@@ -43,4 +43,17 @@ class NotificationController extends AbstractController
         }
     }
 
+    /**
+     * @Route("/all", name="notification_all")
+     */
+    public function notifications()
+    {
+        return $this->render('notifications/index.html.twig', [
+            'notifications'=> $this->notificationRepository->findBy([
+                'seen'=> false,
+                'user'=> $this->getUser()
+            ])
+        ]);
+    }
+
 }

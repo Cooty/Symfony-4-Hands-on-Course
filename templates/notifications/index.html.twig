@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-body">
+            <h5>Unread notifications</h5>
+        </div>
+
+        <ul class="list-group list-group-flush">
+            {% for notification in notifications %}
+                <li class="list-group-item">
+                    {% if notification is like %}
+                        <a href="{{ path('micro_post_user', {'username': notification.likedBy.username}) }}">
+                            {{ notification.likedBy.username }}
+                        </a>&nbsp;like your&nbsp;<a href="{{ path('micro_post_post', {'id': notification.microPost.id}) }}">post</a>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
