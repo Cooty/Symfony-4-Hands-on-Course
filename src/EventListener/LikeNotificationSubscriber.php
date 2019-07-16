@@ -55,11 +55,17 @@ class LikeNotificationSubscriber implements EventSubscriber
              * @var MicroPost
              */
             $microPost = $collectionUpdate->getOwner();
+            $likedBy = reset($insertDiff);
+
+            // Don't notify me when I'm liking my own post
+            if($likedBy->getId() === $microPost->getUser()->getId()) {
+                return;
+            }
 
             $notification = new LikeNotification();
             $notification->setUser($microPost->getUser());
             $notification->setMicroPost($microPost);
-            $notification->setLikedBy(reset($insertDiff));
+            $notification->setLikedBy($likedBy);
 
             $entityManager->persist($notification);
             $unitOfWork->computeChangeSet(
