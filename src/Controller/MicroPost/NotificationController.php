@@ -3,6 +3,7 @@
 namespace App\Controller\MicroPost;
 
 use App\Repository\NotificationRepository;
+use App\Entity\Notification;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -54,6 +55,30 @@ class NotificationController extends AbstractController
                 'user'=> $this->getUser()
             ])
         ]);
+    }
+
+    /**
+     * @Route("/acknowledge/{id}", name="notification_acknowledge")
+     * @param Notification $notification
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function acknowledge(Notification $notification)
+    {
+        $notification->setSeen(true);
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->redirectToRoute('notification_all');
+    }
+
+    /**
+     * @Route("/acknowledge-all", name="notification_acknowledge_all")
+     */
+    public function acknowledgeAll()
+    {
+        $this->notificationRepository->markAllAsReadByCurrentUser($this->getUser());
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->redirectToRoute('notification_all');
     }
 
 }
