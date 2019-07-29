@@ -31,6 +31,9 @@
             <div class="form-group">
                 <button type="submit" id="Login" name="Login" class="btn-secondary btn">Login</button>
             </div>
+            <div class="form-group">
+                Don't have an account? <a href="{{ path('user_registration') }}">Register now!</a>
+            </div>
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
             <input type="hidden" name="_target_path" value="{{ app.request.get('redirect_to') }}">
         </div>
