@@ -3,26 +3,27 @@
 namespace App\Event;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Twig\Environment;
+use Psr\Log\LoggerInterface;
+use App\Mailer\Mailer;
 
 // Subscribers can listen to as many events as we wish
 // but they should be kept small and specific
 class UserSubscriber implements EventSubscriberInterface
 {
     /**
-     * @var \Swift_Mailer
+     * @var Mailer
      */
     private $mailer;
-
     /**
-     * @var Environment
+     * @var LoggerInterface
      */
-    private $twig;
+    private $logger;
 
-    public function __construct(\Swift_Mailer $mailer, Environment $twig)
+    public function __construct(Mailer $mailer, LoggerInterface $logger)
     {
+
         $this->mailer = $mailer;
-        $this->twig = $twig;
+        $this->logger = $logger;
     }
 
     public static function getSubscribedEvents()
@@ -35,23 +36,14 @@ class UserSubscriber implements EventSubscriberInterface
 
     /**
      * @param UserRegisterEvent $event
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
      */
     public function onUserRegister(UserRegisterEvent $event)
     {
-        $registeredUser = $event->getRegisteredUser();
-        $body = $this->twig->render('emails/registration.html.twig',
-            ['user'=> $registeredUser]);
-
-        $message = (new \Swift_Message())
-            ->setSubject('Welcome to the micropost app!')
-            ->setFrom('noreply@micropost.com')
-            ->setTo($registeredUser->getEmail())
-            ->setBody($body, 'text/html');
-
-        $this->mailer->send($message);
+        try {
+            $this->mailer->sendConfirmationEmail($event->getRegisteredUser());
+        } catch (\Exception $e) {
+            $this->logger->error($e->getMessage().' '.$e->getTraceAsString());
+        }
     }
 
 }

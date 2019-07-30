@@ -5,7 +5,8 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
   locale: 'en'
-  hello_prefix: 'Hello from the Service '
+  hello_prefix: 'Hello from the Service'
+  email_from: '%env(MAILER_FROM)%'
 
 services:
   # default configuration for services in *this* file
@@ -31,6 +32,11 @@ services:
   App\Twig\AppExtension:
     arguments:
       $locale: '%locale%'
+
+  App\Mialer\Mailer:
+    arguments:
+      $mailFrom: '%email_from%'
+
 
   #    App\Service\Greetings:
   #        tags: ['app.utility', 'app.output']
