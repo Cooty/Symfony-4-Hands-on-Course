@@ -33,7 +33,7 @@ services:
     arguments:
       $locale: '%locale%'
 
-  App\Mialer\Mailer:
+  App\Mailer\Mailer:
     arguments:
       $mailFrom: '%email_from%'
 

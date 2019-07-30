@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% if user %}
+        <h5>Great success!</h5>
+        <div class="alert alert-info">You're account is confirmed. Now you can <a href="{{ path('security_login') }}">log in</a></div>
+    {% else %}
+        <div class="alert alert-danger">Something went wrong</div>
+    {% endif %}
+{% endblock %}

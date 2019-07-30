@@ -4,6 +4,7 @@ namespace App\Controller\MicroPost;
 
 use App\Event\UserRegisterEvent;
 use App\Form\UserType;
+use App\Security\TokenGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,12 +19,14 @@ class RegistrationController extends AbstractController
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @param Request $request
      * @param EventDispatcherInterface $eventDispatcher
+     * @param TokenGenerator $tokenGenerator
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function register(
         UserPasswordEncoderInterface $passwordEncoder,
         Request $request,
-        EventDispatcherInterface $eventDispatcher
+        EventDispatcherInterface $eventDispatcher,
+        TokenGenerator $tokenGenerator
     ) {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -32,6 +35,7 @@ class RegistrationController extends AbstractController
         if($form->isSubmitted() && $form->isValid()) {
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
+            $user->setConfirmationToken($tokenGenerator->getRandomSecureToken(30));
 
             // alternate way to get the Entity Manager Interface if we're not injecting it
             // comes from the AbstractController
