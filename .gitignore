@@ -1,10 +1,10 @@
 
 ###> symfony/framework-bundle ###
-/.env.test
-/.env
-/.env.local
-/.env.local.php
-/.env.*.local
+.env.test
+.env
+.env.local
+.env.local.php
+.env.*.local
 /public/bundles/
 /var/
 /vendor/
