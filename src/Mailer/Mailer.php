@@ -15,16 +15,25 @@ class Mailer
      * @var Environment
      */
     private $twig;
+    /**
+     * @var string
+     */
+    private $mailFrom;
 
     /**
      * Mailer constructor.
      * @param \Swift_Mailer $mailer
      * @param Environment $twig
+     * @param string $mailFrom
      */
-    public function __construct(\Swift_Mailer $mailer, Environment $twig)
-    {
+    public function __construct(
+        \Swift_Mailer $mailer,
+        Environment $twig,
+        string $mailFrom
+    ) {
         $this->mailer = $mailer;
         $this->twig = $twig;
+        $this->mailFrom = $mailFrom;
     }
 
     /**
@@ -36,11 +45,11 @@ class Mailer
     public function sendConfirmationEmail(User $user)
     {
         $body = $this->twig->render('emails/registration.html.twig',
-            ['user'=> $user]);
+            ['user' => $user]);
 
         $message = (new \Swift_Message())
             ->setSubject('Welcome to the micropost app!')
-            ->setFrom('')
+            ->setFrom($this->mailFrom)
             ->setTo($user->getEmail())
             ->setBody($body, 'text/html');
 
