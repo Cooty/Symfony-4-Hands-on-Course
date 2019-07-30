@@ -37,12 +37,12 @@ class EditController
     private $entityManager;
 
     /**
-     * @var \Twig_Environment
+     * @var \Twig\Environment
      */
     private $twig;
 
     public function __construct(
-        \Twig_Environment $twig,
+        \Twig\Environment $twig,
         MicroPostRepository $microPostRepository,
         FormFactoryInterface $formFactory,
         EntityManagerInterface $entityManager,

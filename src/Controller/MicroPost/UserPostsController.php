@@ -12,7 +12,7 @@ class UserPostsController extends AbstractController
 {
 
     /**
-     * @var \Twig_Environment
+     * @var \Twig\Environment
      */
     private $twig;
 
@@ -22,7 +22,7 @@ class UserPostsController extends AbstractController
     private $microPostRepository;
 
     public function __construct(
-        \Twig_Environment $twig,
+        \Twig\Environment $twig,
         MicroPostRepository $microPostRepository
     )
     {
@@ -34,9 +34,9 @@ class UserPostsController extends AbstractController
      * @Route("/user/{username}", name="micro_post_user")
      * @param User $userWithPosts
      * @return Response
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
      */
     public function userPosts(User $userWithPosts)
     {

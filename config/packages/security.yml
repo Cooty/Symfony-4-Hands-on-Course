@@ -31,6 +31,7 @@ security:
             logout:
                 path: security_logout # Symfony handles all the logic we just need to provide this route (but it has to be defined)
                 target: micro_post_index # user will go here once logged out
+                csrf_parameter: _csrf_token
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:

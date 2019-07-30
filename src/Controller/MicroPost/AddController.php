@@ -23,7 +23,7 @@ use Symfony\Component\Security\Core\Security as SecurityBundle;
 class AddController
 {
     /**
-     * @var \Twig_Environment
+     * @var \Twig\Environment
      */
     private $twig;
 
@@ -48,7 +48,7 @@ class AddController
     private $router;
 
     public function __construct(
-        \Twig_Environment $twig,
+        \Twig\Environment $twig,
         MicroPostRepository $microPostRepository,
         FormFactoryInterface $formFactory,
         EntityManagerInterface $entityManager,

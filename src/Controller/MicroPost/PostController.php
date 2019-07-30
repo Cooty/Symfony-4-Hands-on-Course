@@ -15,11 +15,11 @@ class PostController
     private $microPostRepository;
 
     /**
-     * @var \Twig_Environment
+     * @var \Twig\Environment
      */
     private $twig;
 
-    public function __construct(MicroPostRepository $microPostRepository, \Twig_Environment $twig)
+    public function __construct(MicroPostRepository $microPostRepository, \Twig\Environment $twig)
     {
         $this->microPostRepository = $microPostRepository;
         $this->twig = $twig;
@@ -29,9 +29,9 @@ class PostController
      * @Route("micro-post/post/{id}", name="micro_post_post")
      * @param MicroPost $post
      * @return Response
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
      */
     public function post(MicroPost $post)
     {
