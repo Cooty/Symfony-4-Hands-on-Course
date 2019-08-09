@@ -1,17 +1,5 @@
-<h3>Welcome to the App!</h3>
-
-<p>
-    Hello {{ user.fullName }}! You've registered successfully!
-</p>
-
-<p>
-    <a href="{{ url('security_confirm', {'token': user.confirmationToken}) }}">Confirm your account clicking</a>
-</p>
-
-<p>
-    <strong><a href="{{ url('security_login') }}">Go to Login!</a></strong>
-</p>
-
-<p>
-    <strong>Thanks!</strong>
-</p>
+{{ 'email.registration'|trans({
+    '%name%': user.fullName,
+    '%confirm-link%': url('security_confirm', {'token': user.confirmationToken}),
+    '%login-link%': url('security_login')
+})|raw }}

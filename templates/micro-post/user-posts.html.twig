@@ -32,8 +32,10 @@
     </div>
 
     {% if user.followers|length > 0 or user.following|length > 0 %}
-        {% set followerTemplateParams = {'title': 'Followers', 'relatedUsers': user.followers} %}
-        {% set followingTemplateParams = {'title': 'Following', 'relatedUsers': user.following} %}
+
+
+        {% set followerTemplateParams = {'title': 'Followers'|transchoice(user.followers|length), 'relatedUsers': user.followers} %}
+        {% set followingTemplateParams = {'title': 'Following'|transchoice(user.following|length), 'relatedUsers': user.following} %}
 
         <div class="card-group py-2">
             {% include('./micro-post/includes/related-users.html.twig') with followerTemplateParams %}

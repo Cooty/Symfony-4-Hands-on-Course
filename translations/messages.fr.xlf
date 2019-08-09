@@ -68,6 +68,16 @@
 <p>Pour vous connecter, accédez à <a href="%login-link%">page de connexion</a>.</p>
 <p>Merci!</p>]]></target>
             </trans-unit>
+
+            <trans-unit id="user.followers">
+                <source>Followers</source>
+                <target>{0} Pas d'adeptes|{1} Disciple|]1,Inf[ %count% Suiveuses</target>
+            </trans-unit>
+
+            <trans-unit id="user.following">
+                <source>Following</source>
+                <target>{0} Suivre personne|]0,Inf[ Suivante %count%</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
