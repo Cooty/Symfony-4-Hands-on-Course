@@ -38,7 +38,7 @@ class UserType extends AbstractType
                     'mapped' => false, // this means that it's not present on the Entity, otherwise it would throw error because all the form fields have to match up with the entity class
                     // the same we added on the User entity with annotations
                     'constraints' => new IsTrue(),
-                    'label' => 'I agree to the Terms of Service',
+                    'label' => 'I agree to the terms of service',
                 ])
                 ->add('Register', SubmitType::class);
 

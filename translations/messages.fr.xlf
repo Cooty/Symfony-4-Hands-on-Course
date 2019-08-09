@@ -32,12 +32,16 @@
                 <source>Username</source>
                 <target>Nom d'utilisateur</target>
             </trans-unit>
+            <trans-unit id="register.email">
+                <source>Email</source>
+                <target>E-mail</target>
+            </trans-unit>
             <trans-unit id="register.password">
                 <source>Password</source>
                 <target>Mot de passe</target>
             </trans-unit>
             <trans-unit id="register.repeated_password">
-                <source>Repated password</source>
+                <source>Retype Password</source>
                 <target>Mot de passé</target>
             </trans-unit>
             <trans-unit id="register.full_name">
