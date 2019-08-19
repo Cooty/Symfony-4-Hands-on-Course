@@ -3,7 +3,7 @@
     <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
         <body>
             <trans-unit id="menu.signin">
-                <source>Signs in</source>
+                <source>Sign in</source>
                 <target>Sign in</target>
             </trans-unit>
             <trans-unit id="menu.signout">
