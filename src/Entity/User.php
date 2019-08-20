@@ -111,6 +111,11 @@ class User implements AdvancedUserInterface, \Serializable
      */
     private $enabled;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\UserPreferences")
+     */
+    private $preferences;
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
@@ -320,5 +325,24 @@ class User implements AdvancedUserInterface, \Serializable
     public function isEnabled()
     {
         return $this->enabled;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPreferences()
+    {
+        return $this->preferences;
+    }
+
+    /**
+     * @param $preferences
+     * @return User
+     */
+    public function setPreferences($preferences): self
+    {
+        $this->preferences = $preferences;
+
+        return $this;
     }
 }
