@@ -31,13 +31,17 @@
                 <source>Username</source>
                 <target>Username</target>
             </trans-unit>
+            <trans-unit id="register.email">
+                <source>Email</source>
+                <target>Email</target>
+            </trans-unit>
             <trans-unit id="register.password">
                 <source>Password</source>
                 <target>Password</target>
             </trans-unit>
             <trans-unit id="register.repeated_password">
-                <source>Repated password</source>
-                <target>Repated password</target>
+                <source>Retype Password</source>
+                <target>Retype Password</target>
             </trans-unit>
             <trans-unit id="register.full_name">
                 <source>Full name</source>
