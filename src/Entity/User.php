@@ -330,7 +330,7 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * @return mixed
      */
-    public function getPreferences()
+    public function getPreferences(): UserPreferences
     {
         return $this->preferences;
     }
