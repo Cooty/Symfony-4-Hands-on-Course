@@ -13,13 +13,25 @@ class App {
             App.instance = this;
         }
 
-        this.init();
+        try {
+            this.init();
+        } catch (e) {
+            console.warn(e);
+        }
 
         return App.instance;
     }
 
     init() {
-        console.log('App initialized - change v7');
+        if(window._config.isLoggedIn) {
+            import('./modules/fetch-notification-count')
+                .then(({default: fetchNotificationCount})=> {
+                    fetchNotificationCount();
+                })
+                .catch((reason)=> {
+                    throw Error(reason);
+                })
+        }
     }
 }
 

@@ -28,7 +28,7 @@ Encore
             //TODO: find out why it's not compressing
             options.outputStyle = 'compressed';
     })
-    .disableSingleRuntimeChunk();
+    .enableSingleRuntimeChunk();
 
 const config = Encore.getWebpackConfig();
 config.watchOptions = {

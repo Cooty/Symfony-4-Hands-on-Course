@@ -20,28 +20,16 @@
     </div>
 </main>
 {% block javascripts %}
+    <script>
+        var _config = {
+            isLoggedIn: {{ (is_granted('ROLE_USER')) ? 'true' : 'false' }},
+            {% if is_granted('ROLE_USER') %}
+            notificationUrl: '{{ path('notification_unread') }}'
+            {% endif %}
+        };
+    </script>
     {{ encore_entry_script_tags('app') }}
 
-    {% if is_granted('ROLE_USER') %}
-        <script>
-            function fetchNotificationCount() {
-                fetch(
-                    '{{ path('notification_unread') }}',
-                    {'credentials': 'include'}
-                ).then((response)=> {
-                    response.json()
-                        .then((data)=> {
-                            document.getElementById('js-notification-count').innerHTML = data.count;
-                            setTimeout(fetchNotificationCount, 5000);
-                        });
-                }).catch((reason)=> {
-                    console.warn(reason);
-                });
-            }
-
-            fetchNotificationCount();
-        </script>
-    {% endif %}
 {% endblock %}
 </body>
 </html>
