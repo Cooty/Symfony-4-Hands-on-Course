@@ -22,5 +22,8 @@
     "holderjs": "^2.9.6",
     "jquery": "3",
     "popper.js": "^1.12.9"
+  },
+  "resolutions": {
+    "terser": "3.14.1"
   }
 }
