@@ -13,7 +13,6 @@ class MailerTest extends TestCase
     public function testConfirmationEmail()
     {
         $email = 'john.doe@example.com';
-
         $user = new User();
         $user->setEmail($email);
         $user->setFullName('John Doe');
