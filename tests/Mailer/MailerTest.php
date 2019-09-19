@@ -27,8 +27,6 @@ class MailerTest extends TestCase
             ->with($this->callback(function($subject) use ($email) {
                 $messageStr = (string)$subject;
 
-                dump($messageStr);
-
                 return strpos($messageStr, 'From: test@example.com') !== false &&
                     strpos($messageStr, 'Content-Type: text/html; charset=utf-8') !== false &&
                     strpos($messageStr, 'Content-Type: text/html; charset=utf-8') !== false &&
