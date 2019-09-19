@@ -1,16 +1,35 @@
 <!DOCTYPE html>
-<html lang="{{ locale }}">
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
+<html lang="{{ (app.session is defined and app.session.get('_locale')) ? app.session.get('_locale') : locale }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        {# This block does something #}
+    <title>{% block title %}MicroPosts{% endblock %}</title>
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+</head>
+<body class="bg-light">
+
+{%  include('./includes/nav.html.twig') %}
+
+<main role="main" class="container">
+    <div class="my-3 p-3 bg-white rounded box-shadow">
         {% block body %}
-
         {% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+    </div>
+</main>
+{% block javascripts %}
+    <script>
+        var _config = {
+            isLoggedIn: {{ (is_granted('ROLE_USER')) ? 'true' : 'false' }},
+            {% if is_granted('ROLE_USER') %}
+            notificationUrl: '{{ path('notification_unread') }}'
+            {% endif %}
+        };
+    </script>
+    {{ encore_entry_script_tags('app') }}
+
+{% endblock %}
+</body>
 </html>

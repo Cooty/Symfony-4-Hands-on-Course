@@ -1,8 +1,10 @@
 
 ###> symfony/framework-bundle ###
-/.env.local
-/.env.local.php
-/.env.*.local
+.env.test
+.env
+.env.local
+.env.local.php
+.env.*.local
 /public/bundles/
 /var/
 /vendor/
@@ -17,5 +19,13 @@
 /.web-server-pid
 ###< symfony/web-server-bundle ###
 
-node_modules/
-.idea/
+/node_modules/
+/.idea/
+
+/public/build/
+###> symfony/webpack-encore-bundle ###
+/node_modules/
+/public/build/
+npm-debug.log
+yarn-error.log
+###< symfony/webpack-encore-bundle ###

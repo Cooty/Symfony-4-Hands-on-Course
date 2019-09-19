@@ -1,0 +1,41 @@
+security:
+    access_decision_manager:
+        strategy: affirmative
+    encoders:
+        App\Entity\User: bcrypt
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    providers:
+        database_users:
+            entity: { class: App\Entity\User, property: username }
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            anonymous: true
+            pattern: ^/
+            form_login:
+                 # This is the submit target of the <form>
+                 check_path: security_login
+                 # This is the path where the <form> will be rendered and where the user logs in
+                 login_path: security_login
+                 csrf_token_generator: security.csrf.token_manager
+                 # Redirect here after login
+                 default_target_path: micro_post_index
+                 # always_use_default_target_path: false
+                 #use_referer: true # redirects the user to the last visited page, except if that last visited page was the loginform
+                 #failure_path: <redirect path on failed auth goes here>
+                 # the names of the form fields in the HTML, these are the defaults btw
+                 username_parameter: _username
+                 password_parameter: _password
+            logout:
+                path: security_logout # Symfony handles all the logic we just need to provide this route (but it has to be defined)
+                target: micro_post_index # user will go here once logged out
+                csrf_parameter: _csrf_token
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+#         - { path: ^/micro-post, roles: ROLE_USER }
+        # - { path: ^/profile, roles: ROLE_USER }
+    role_hierarchy:
+      ROLE_ADMIN: ROLE_USER

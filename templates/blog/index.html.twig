@@ -19,23 +19,4 @@
             </li>
         {% endfor %}
     </ul>
-    <p>
-        <strong>Debug: </strong>{{ app.getDebug() }}
-    </p>
-    <p>
-        <strong>Environment: </strong>{{ app.getEnvironment() }}
-    </p>
-    <p>
-        <strong>Request: </strong>
-        <br>
-        <pre>{{ app.request }}</pre>
-    </p>
-    <p>
-        <strong>User: </strong>
-        <br/>
-    <pre>{{ app.user }}</pre>
-    </p>
-    <p>
-        <strong>Session started: </strong><pre>{{ app.session.isStarted() }}</pre>
-    </p>
 {% endblock %}

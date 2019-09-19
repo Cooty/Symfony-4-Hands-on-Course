@@ -1,0 +1,18 @@
+{% if relatedUsers is defined and relatedUsers|length > 0 %}
+<div class="card">
+    <div class="card-body">
+        <h5 class="mb-0">
+            {{ title }}
+        </h5>
+    </div>
+    <ul class="list-group list-group-flush">
+        {% for relatedUser in relatedUsers %}
+            <li class="list-group-item">
+                <a href="{{ path('micro_post_user', {'username': relatedUser.username}) }}">
+                    @{{ relatedUser.username }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}

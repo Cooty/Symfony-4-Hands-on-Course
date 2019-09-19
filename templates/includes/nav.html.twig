@@ -1,0 +1,43 @@
+<nav class="navbar navbar-dark navbar-expand-md sticky-top bg-dark p-0">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0"
+       href="{{ path('micro_post_index') }}">Micro Post App</a>
+    <div class="w-100 order-1 order-md-0">
+        <ul class="navbar-nav px-3">
+            {% if is_granted('ROLE_USER') %}
+                <li class="nav-item text-nowrap">
+                    <a class="btn btn-sm btn-primary" href="{{ path('micro_post_add') }}">
+                        {{ 'Add new'|trans }}
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+
+    <div class="order-2 order-md-1">
+        <ul class="navbar-nav px-3">
+            {% if is_granted('ROLE_USER') %}
+                <li class="nav-item text-nowrap border-right border-secondary">
+                    <a class="nav-link" href="{{ path('notification_all') }}">
+                        {{ 'Notifications'|trans }}
+                        <span class="badge badge-light" id="js-notification-count">
+                            <i class="fas fa-circle-notch fa-spin"></i>
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item text-nowrap">
+                    <a class="nav-link"
+                       href="{{ path('micro_post_user', {'username': app.user.username}) }}">{{ app.user.fullName }}</a>
+                </li>
+                <li class="nav-item text-nowrap d-flex align-items-center">
+                    <a class="btn btn-sm btn-outline-light"
+                       href="{{ logout_path() }}">{{ 'Sign out'|trans }}</a>
+                </li>
+            {% else %}
+                <li class="nav-item text-nowrap">
+                    <a class="btn btn-sm btn-outline-light"
+                       href="{{ path('security_login') }}">{{ 'Sign in'|trans }}</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>

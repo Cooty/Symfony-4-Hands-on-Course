@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}@{{ post.user.username }} on {{ post.time|date("d/m/Y") }}{% endblock %}
+
+{% block body %}
+    {% include('./micro-post/includes/post-item.html.twig') %}
+
+    {% if is_granted('ROLE_USER') %}
+        {% set isLiked = post.getLikedBy.contains(app.user) %}
+        <div class="pt-2">
+            <button type="button"
+                    id="js-like-btn"
+                    class="btn btn-outline-secondary btn-sm"
+                    style="display: {% if not isLiked %}block{% else %}none{% endif %}">
+                Like
+                <span class="badge badge-light" id="js-like-count">
+                    {{ post.getLikedBy.count }}
+                </span>
+            </button>
+
+            <button type="button"
+                    id="js-unlike-btn"
+                    class="btn btn-outline-danger btn-sm"
+                    style="display: {% if isLiked %}block{% else %}none{% endif %}">
+                Unlike
+                <span class="badge badge-light" id="js-unlike-count">
+                    {{ post.getLikedBy.count }}
+                </span>
+            </button>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        (function(){
+            const likeButton = document.getElementById("js-like-btn");
+            const likeCount = document.getElementById("js-like-count");
+            const unlikeButton = document.getElementById("js-unlike-btn");
+            const unlikeCount = document.getElementById("js-unlike-count");
+
+            const changeButton = (buttonToHide, buttonToShow)=> {
+                buttonToHide.disabled = false;
+                buttonToHide.style.display = "none";
+                buttonToShow.style.display = "block";
+            };
+
+            const clickHandler = (buttonToHide, buttonToShow, likeCount, path)=> {
+                buttonToHide.addEventListener("click", async event => {
+                    buttonToHide.disabled = true;
+                    event.preventDefault();
+
+                    try {
+                        const response = await fetch(path, {"credentials": "include"});
+                        const data = await response.json();
+
+                        likeCount.innerText = data.count;
+                        changeButton(buttonToHide, buttonToShow);
+                    } catch(e) {
+                        console.warn(e);
+                        changeButton(buttonToHide, buttonToShow);
+                    }
+                })
+            };
+
+            clickHandler(likeButton, unlikeButton, unlikeCount, '{{ path('micro_post_likes_like', {'id': post.id}) }}');
+            clickHandler(unlikeButton, likeButton, likeCount, '{{ path('micro_post_likes_unlike', {'id': post.id}) }}');
+
+
+        }());
+    </script>
+{% endblock %}
