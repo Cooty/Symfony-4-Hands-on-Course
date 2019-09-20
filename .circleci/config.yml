@@ -43,6 +43,12 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install zlib1g
+          command: sudo apt install -y zlib1g-dev
+      - run:
+          name: Install PHP extensions
+          command: sudo docker-php-ext-install zip
+      - run:
           name: Composer install
           command: composer install -n --prefer-dist
       - run:
