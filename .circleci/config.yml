@@ -6,21 +6,27 @@ jobs:
       - image: circleci/php:7.2.4-apache-stretch-node-browsers
         environment:
           APP_ENV: test
-          DATABASE_URL: mysql://root:etwas_ist_angesagt@localhost:3306/micro-post
+          DATABASE_URL: mysql://root:root@127.0.0.1/micro-post
           MAILER_FROM: micro@micropost.com
-          MAILER_URL: smtp://3d7ac8155be67a:5e8dc4f7bdce3a@smtp:mailtrap:io:25
+          MAILER_URL: null://localhost
       - image: circleci/mysql:5.7
         environment:
-          MYSQL_ROOT_PASSWORD: 'etwas_ist_angesagt'
+          MYSQL_ROOT_PASSWORD: 'root'
           MYSQL_DATABASE: micro-post
     steps:
-      - checkout:
+      - checkout
       - run:
           name: Install PHP MySQL
           command: sudo docker-php-ext-install pdo_mysql
       - run:
+          name: Install PHP libzip-dev
+          command: sudo apt-get install -y libzip-dev
+      - run:
+          name: Install zip package for PHP
+          command: sudo docker-php-ext-install zip
+      - run:
           name: Wait for MySQL
-          command: dockerize -wait tcp://127.0.0.1:3306 - timout 120s
+          command: dockerize -wait tcp://127.0.0.1:3306 -timeout 120s
       - run:
           name: Update Composer version
           command: sudo composer self-update
