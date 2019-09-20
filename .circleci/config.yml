@@ -26,7 +26,7 @@ jobs:
           command: sudo composer self-update
       - run:
           name: Install Composer packages
-          command: composer install -n --prefer-dist
+          command: sudo composer install -n --prefer-dist
       - run:
           name: Run migrations
           command: php bin/console doctrine:migrations:migrate --env=test --no-interaction
