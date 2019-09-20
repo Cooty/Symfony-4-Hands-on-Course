@@ -62,7 +62,7 @@ jobs:
           command: ssh-keyscan -H $DROPLET_IP >> ~/.ssh/known_hosts
       - run:
           name: Pre-deploy
-          command: ssh -T $DROPLET_USER:$DROPLET_IP < bin/deploy/pre_deploy.sh
+          command: ssh -T $DROPLET_USER@$DROPLET_IP < bin/deploy/pre_deploy.sh
       - run:
           name: Deploy code
           command: rsync -vzcrSLhp --exclude '.env' --delete ~/micropost/ $DROPLET_USER@$DROPLET_IP:/var/www/micropost_current
