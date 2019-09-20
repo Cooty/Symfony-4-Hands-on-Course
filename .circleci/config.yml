@@ -16,14 +16,11 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install PHP MySQL
-          command: sudo docker-php-ext-install pdo_mysql
+        name: Install zlib1g
+        command: sudo apt install -y zlib1g-dev
       - run:
-          name: Install PHP libzip-dev
-          command: sudo apt-get install -y libzip-dev
-      - run:
-          name: Install zip package for PHP
-          command: sudo docker-php-ext-install zip
+          name: Install PHP extensions
+          command: sudo docker-php-ext-install pdo_mysql zip
       - run:
           name: Wait for MySQL
           command: dockerize -wait tcp://127.0.0.1:3306 -timeout 120s
@@ -36,3 +33,6 @@ jobs:
       - run:
           name: Run migrations
           command: php bin/console doctrine:migrations:migrate --env=test --no-interaction
+      - run:
+          name: Run tests
+          command: ./bin/phpunit
