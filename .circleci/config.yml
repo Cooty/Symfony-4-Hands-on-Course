@@ -20,13 +20,13 @@ jobs:
           command: sudo docker-php-ext-install pdo_mysql
       - run:
           name: Wait for MySQL
-          command: dockerize -wait tcp://127.0.0.1:3306 - timout 120s
+          command: sudo dockerize -wait tcp://127.0.0.1:3306 - timout 120s
       - run:
           name: Update Composer version
           command: sudo composer self-update
       - run:
           name: Install Composer packages
-          command: composer install -n --prefer-dist
+          command: sudo composer install -n --prefer-dist
       - run:
           name: Run migrations
-          command: php bin/console doctrine:migrations:migrate --env=test --no-interaction
+          command: sudo php bin/console doctrine:migrations:migrate --env=test --no-interaction
